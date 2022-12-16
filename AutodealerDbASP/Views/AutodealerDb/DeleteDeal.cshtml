@@ -1,0 +1,61 @@
+﻿@model AutodealerDbASP.Models.AutodealerDb.Entities.ClientDeal
+
+<h2>Удаление сделки</h2>
+
+<div>
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <dl class="dl-horizontal">
+            <dt>
+                <div class="control-label col-md-2">
+                    <label>Лот</label>
+                </div>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Lot.Model.CarBrand.Name) @Html.DisplayFor(model => model.Lot.Model.Name)
+            </dd>
+
+
+            <dt>
+                <div class="control-label col-md-2">
+                    <label>Цвет</label>
+                </div>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Lot.Model.CarColor.Name)
+            </dd>
+
+
+            <dt>
+                <div class="control-label col-md-2">
+                    <label>Клиент</label>
+                </div>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Client.Name)
+            </dd>
+
+
+            <dt>
+                <div class="control-label col-md-2">
+                    <label>Стоимость</label>
+                </div>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Lot.PriceAmount)
+            </dd>
+
+        </dl>
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" />
+        </div>
+    }
+</div>
+@Html.ActionLink("Вернутся к списку лотов", "LotsList")

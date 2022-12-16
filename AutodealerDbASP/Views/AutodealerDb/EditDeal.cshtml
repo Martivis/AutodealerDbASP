@@ -1,0 +1,54 @@
+﻿@model AutodealerDbASP.Models.AutodealerDb.Entities.ClientDeal
+
+<h2>Редактирование сделки</h2>
+
+@using (Html.BeginForm("EditDeal", "AutodealerDb", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+	@Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+		<hr />
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		@Html.HiddenFor(model => model.ClientDealId)
+
+		<div class="form-group">
+			<div class="control-label col-md-2">
+				<label>Лот</label>
+			</div>
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.LotId, ViewBag.Lots as SelectList)
+				@Html.ValidationMessageFor(model => model.LotId, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="control-label col-md-2">
+				<label>Дата покупки</label>
+			</div>
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.PurchaseDate, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.PurchaseDate, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="control-label col-md-2">
+				<label>Клиент</label>
+			</div>
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.ClientId, ViewBag.Clients as SelectList)
+				@Html.ValidationMessageFor(model => model.ClientId, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Сохранить" class="btn btn-default" />
+			</div>
+		</div>
+	</div>
+}
+
+<div>
+    @Html.ActionLink("Вернуться к списку сделок", "DealsList")
+</div>

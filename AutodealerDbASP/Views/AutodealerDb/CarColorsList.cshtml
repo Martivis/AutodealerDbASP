@@ -1,0 +1,83 @@
+﻿@model PagedList.Core.IPagedList<AutodealerDbASP.Models.AutodealerDb.Entities.CarColor>
+
+<div class="container">
+
+	<h2 class="text-center page-header">Доступные цвета</h2>
+
+</div>
+@foreach (var item in Model)
+{
+	<div class="container jumbotron ">
+
+		<div class="text-center">
+
+			<a class="h3 content-title">@Html.DisplayFor(modelItem => item.Name)</a>
+
+		</div>
+
+		<div class="container">
+			<div class="col-md-1 col-md-offset-4">
+				<p><a class="btn btn-default" href="/AutodealerDb/DeleteCarColor/@item.CarColorId">Удалить</a></p>
+			</div>
+
+			<div class="col-md-1 col-md-offset-1">
+				<p><a class="btn btn-default" href="/AutodealerDb/EditCarColor/@item.CarColorId">Изменить</a></p>
+			</div>
+		</div>
+
+	</div>
+}
+
+<nav aria-label="Page navigation">
+	<ul class="pagination">
+		@if (Model.HasPreviousPage)
+		{
+			<li>
+				<a href="/AutodealerDb/CarColorsList/?page=@(Model.PageNumber-1)" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+			</li>
+		}
+		else
+		{
+			<li class="disabled">
+				<span>
+					<span aria-hidden="true">&laquo;</span>
+				</span>
+			</li>
+		}
+		@for (int i = 1; i < Model.PageCount + 1; i++)
+		{
+			@if (Model.PageNumber == i)
+			{
+				<li class="active">
+					<span>@i<span class="sr-only">(Current)</span></span>
+				</li>
+			}
+			else
+			{
+				<li><a href="/AutodealerDb/CarColorsList/?page=@i">@i</a></li>
+			}
+		}
+		@if (Model.HasNextPage)
+		{
+			<li>
+				<a href="/AutodealerDb/CarColorsList/?page=@(Model.PageNumber+1)" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				</a>
+			</li>
+		}
+		else
+		{
+			<li class="disabled">
+				<span>
+					<span aria-hidden="true">&raquo;</span>
+				</span>
+			</li>
+		}
+	</ul>
+</nav>
+
+<div>
+	@Html.ActionLink("Добавить цвет", "AddCarColor")
+</div>

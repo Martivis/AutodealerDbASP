@@ -1,0 +1,81 @@
+﻿@model AutodealerDbASP.Models.AutodealerDb.Entities.Lot
+
+<h2>Добавление лота</h2>
+
+@using (Html.BeginForm("AddLot", "AutodealerDb", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+	@Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+		<hr />
+		<div class="form-group">
+			<div class="control-label col-md-2">
+				<label>Модель</label>
+			</div>
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.ModelId, ViewBag.Models as SelectList)
+				@Html.ValidationMessageFor(model => model.ModelId, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="control-label col-md-2">
+				<label>Дата производства</label>
+			</div>
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.ManufacturingDate, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.ManufacturingDate, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="control-label col-md-2">
+				<label>Поставщик</label>
+			</div>
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.ProviderId, ViewBag.Providers as SelectList)
+				@Html.ValidationMessageFor(model => model.ProviderId, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="control-label col-md-2">
+				<label>Цена</label>
+			</div>
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.PriceAmount, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.PriceAmount, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="control-label col-md-2">
+				<label>Стоимость услуг предпродажной подготовки</label>
+			</div>
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.PresalePreporationCosts, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.PresalePreporationCosts, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="control-label col-md-2">
+				<label>Транспортные издержки</label>
+			</div>
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.TransportCosts, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.TransportCosts, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Добавить" class="btn btn-default" />
+			</div>
+		</div>
+	</div>
+}
+
+<div>
+	@Html.ActionLink("Вернуться к списку лотов", "LotsList")
+</div>

@@ -1,0 +1,28 @@
+﻿@model AutodealerDbASP.Models.AutodealerDb.Entities.CarBrand
+
+<h2>Удаление бренда</h2>
+
+<div>
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <dl class="dl-horizontal">
+            <dt>
+                <div class="control-label col-md-2">
+                    <label>Название</label>
+                </div>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+        </dl>
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" />
+        </div>
+    }
+</div>
+@Html.ActionLink("Вернутся к списку брендов", "CarBrandsList")

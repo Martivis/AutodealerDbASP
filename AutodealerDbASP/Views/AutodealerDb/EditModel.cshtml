@@ -1,0 +1,64 @@
+﻿@model AutodealerDbASP.Models.AutodealerDb.Entities.Model
+
+<h2>Редактирование модели</h2>
+
+@using (Html.BeginForm("EditModel", "AutodealerDb", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+	@Html.AntiForgeryToken()
+
+	<div class="form-horizontal">
+		<hr />
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		@Html.HiddenFor(model => model.ModelId)
+
+		<div class="form-group">
+			<div class="control-label col-md-2">
+				<label>Бренд</label>
+			</div>
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.CarBrandId, ViewBag.CarBrands as SelectList)
+				@Html.ValidationMessageFor(model => model.CarBrandId, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="control-label col-md-2">
+				<label>Название</label>
+			</div>
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="control-label col-md-2">
+				<label>Color</label>
+			</div>
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.CarColorId, ViewBag.CarColors as SelectList)
+				@Html.ValidationMessageFor(model => model.CarColorId, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="control-label col-md-2">
+				<label>Мощность</label>
+			</div>
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Power, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Power, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Сохранить" class="btn btn-default" />
+			</div>
+		</div>
+	</div>
+}
+
+<div>
+    @Html.ActionLink("Вернуться к списку моделей", "ModelsList")
+</div>

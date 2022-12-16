@@ -1,0 +1,58 @@
+﻿@model AutodealerDbASP.Models.AutodealerDb.Entities.Provider
+
+<h2>Удаление поставщика</h2>
+
+<div>
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <dl class="dl-horizontal">
+            <dt>
+                <div class="control-label col-md-2">
+                    <label>Название</label>
+                </div>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                <div class="control-label col-md-2">
+                    <label>Телефон</label>
+                </div>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </dd>
+
+            <dt>
+                <div class="control-label col-md-2">
+                    <label>E-mail</label>
+                </div>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+
+            <dt>
+                <div class="control-label col-md-2">
+                    <label>Сайт</label>
+                </div>
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.WebsiteUrl)
+            </dd>
+
+        </dl>
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" />
+        </div>
+    }
+</div>
+@Html.ActionLink("Вернутся к списку поставщиков", "ProvidersList")

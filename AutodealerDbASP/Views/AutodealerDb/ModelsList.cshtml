@@ -1,0 +1,90 @@
+﻿@model PagedList.Core.IPagedList<AutodealerDbASP.Models.AutodealerDb.Entities.Model>
+
+<div class="container">
+
+	<h2 class="text-center page-header">Модели</h2>
+
+</div>
+@foreach (var item in Model)
+{
+	<div class="container jumbotron ">
+
+		<div class="text-center">
+			<p class="description">@Html.DisplayFor(modelItem => item.CarBrand.Name) @Html.DisplayFor(modelItem => item.Name)</p>
+		</div>
+
+		<div class="text-center">
+			<p class="description">Цвет @Html.DisplayFor(modelItem => item.CarColor.Name)</p>
+		</div>
+
+		<div class="text-center">
+			<p class="description">@Html.DisplayFor(modelItem => item.Power) Л.С.</p>
+		</div>
+
+		<div class="container">
+			<div class="col-md-1 col-md-offset-4">
+				<p><a class="btn btn-default" href="/AutodealerDb/DeleteModel/@item.ModelId">Удалить</a></p>
+			</div>
+
+			<div class="col-md-1 col-md-offset-1">
+				<p><a class="btn btn-default" href="/AutodealerDb/EditModel/@item.ModelId">Изменить</a></p>
+			</div>
+		</div>
+
+	</div>
+}
+
+<nav aria-label="Page navigation">
+	<ul class="pagination">
+		@if (Model.HasPreviousPage)
+		{
+				<li>
+					<a href="/AutodealerDb/ModelsList/?page=@(Model.PageNumber-1)" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+					</a>
+				</li>
+		}
+		else
+		{
+				<li class="disabled">
+					<span>
+						<span aria-hidden="true">&laquo;</span>
+					</span>
+				</li>
+		}
+		@for (int i = 1; i < Model.PageCount + 1; i++)
+		{
+			@if (Model.PageNumber == i)
+			{
+						<li class="active">
+							<span>@i<span class="sr-only">(Current)</span></span>
+						</li>
+			}
+			else
+			{
+						<li><a href="/AutodealerDb/ModelsList/?page=@i">@i</a></li>
+			}
+		}
+		@if (Model.HasNextPage)
+		{
+				<li>
+					<a href="/AutodealerDb/ModelsList/?page=@(Model.PageNumber+1)" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+					</a>
+				</li>
+		}
+		else
+		{
+				<li class="disabled">
+					<span>
+						<span aria-hidden="true">&raquo;</span>
+					</span>
+				</li>
+		}
+	</ul>
+</nav>
+
+
+<div>
+	@Html.ActionLink("Добавить модель", "AddModel")
+</div>
