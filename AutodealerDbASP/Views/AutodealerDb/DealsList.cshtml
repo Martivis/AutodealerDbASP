@@ -5,38 +5,25 @@
 	<h2 class="text-center page-header">Сделки</h2>
 
 </div>
-@foreach (var item in Model)
-{
-	<div class="container jumbotron ">
 
-		<div class="text-center">
-			<p class="description">@Html.DisplayFor(modelItem => item.Lot.Model.CarBrand.Name) @Html.DisplayFor(modelItem => item.Lot.Model.Name)</p>
-		</div>
-
-		<div class="text-center">
-			<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> @item.PurchaseDate.ToLongDateString();
-		</div>
-
-		<div class="text-center">
-			<p class="description">@Html.DisplayFor(modelItem => item.Client.Name)</p>
-		</div>
-
-		<div class="text-center">
-			<p class="description">@Html.DisplayFor(modelItem => item.Lot.PriceAmount) Руб</p>
-		</div>
-
-		<div class="container">
-			<div class="col-md-1 col-md-offset-4">
-				<p><a class="btn btn-default" href="/AutodealerDb/DeleteDeal/@item.ClientDealId">Удалить</a></p>
-			</div>
-
-			<div class="col-md-1 col-md-offset-1">
-				<p><a class="btn btn-default" href="/AutodealerDb/EditDeal/@item.ClientDealId">Изменить</a></p>
-			</div>
-		</div>
-
-	</div>
-}
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3>@Html.DisplayFor(modelItem => item.Lot.Model.CarBrand.Name) @Html.DisplayFor(modelItem => item.Lot.Model.Name)</h3>
+                    <p><div class="glyphicon glyphicon-calendar"></div> @item.PurchaseDate.ToLongDateString()</p>
+                    <p><div class="glyphicon glyphicon-user"></div> @Html.DisplayFor(modelItem => item.Client.Name)</p>
+                    <p>
+                        <a href="/AutodealerDb/EditDeal/@item.ClientDealId" class="btn btn-default" role="button">Изменить</a>
+                        <a href="/AutodealerDb/DeleteDeal/@item.ClientDealId" class="btn btn-default" role="button">Удалить</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
 
 <nav aria-label="Page navigation">
 	<ul class="pagination">

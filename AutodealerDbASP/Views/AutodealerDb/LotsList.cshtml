@@ -5,38 +5,26 @@
 	<h2 class="text-center page-header">Автомобили</h2>
 
 </div>
-@foreach (var item in Model)
-{
-	<div class="container jumbotron ">
 
-		<div class="text-center">
-			<p class="description">@Html.DisplayFor(modelItem => item.Model.CarBrand.Name) @Html.DisplayFor(modelItem => item.Model.Name)</p>
-		</div>
-
-		<div class="text-center">
-			<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> @item.ManufacturingDate.ToLongDateString();
-		</div>
-
-		<div class="text-center">
-			<p class="description">@Html.DisplayFor(modelItem => item.Model.Power) Л.С.</p>
-		</div>
-
-		<div class="text-center">
-			<p class="description">@Html.DisplayFor(modelItem => item.PriceAmount) Руб</p>
-		</div>
-
-		<div class="container">
-			<div class="col-md-1 col-md-offset-4">
-				<p><a class="btn btn-default" href="/AutodealerDb/DeleteLot/@item.LotId">Удалить</a></p>
-			</div>
-
-			<div class="col-md-1 col-md-offset-1">
-				<p><a class="btn btn-default" href="/AutodealerDb/EditLot/@item.LotId">Изменить</a></p>
-			</div>
-		</div>
-
-	</div>
-}
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3>@Html.DisplayFor(modelItem => item.Model.CarBrand.Name) @Html.DisplayFor(modelItem => item.Model.Name)</h3>
+                    <p><div class="glyphicon glyphicon-calendar"></div> @item.ManufacturingDate.ToLongDateString()</p>
+                    <p><div class="glyphicon glyphicon-fire"></div> @Html.DisplayFor(modelItem => item.Model.Power) Л.С.</p>
+                    <p><div class="glyphicon glyphicon-usd"></div> @Html.DisplayFor(modelItem => item.PriceAmount) Руб</p>
+<p>
+                        <a href="/AutodealerDb/EditLot/@item.LotId" class="btn btn-default" role="button">Изменить</a>
+                        <a href="/AutodealerDb/DeleteLot/@item.LotId" class="btn btn-default" role="button">Удалить</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
 
 <nav aria-label="Page navigation">
 	<ul class="pagination">

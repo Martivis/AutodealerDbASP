@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using AutodealerDbASP.Models.AutodealerDb;
 using PagedList.Core;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AutodealerDbASP.Controllers
 {
@@ -36,8 +37,17 @@ namespace AutodealerDbASP.Controllers
         [HttpPost, ActionName("DeleteCarColor")]
         public ActionResult DeleteCarColorConfirmed(int id)
         {
-            _db.Delete(_db.Get<CarColor>(id));
-            return RedirectToAction("CarColorsList");
+            try
+            {
+                _db.Delete(_db.Get<CarColor>(id));
+                return RedirectToAction("CarColorsList");
+            }
+            catch
+            {
+                CarColor carColor = _db.Get<CarColor>(id);
+                ViewBag.ErrorMessage = "Не удалось удалить цвет, так как он используется моделью";
+                return View(carColor);
+            }
         }
 
         [HttpGet]
@@ -99,8 +109,17 @@ namespace AutodealerDbASP.Controllers
         [HttpPost, ActionName("DeleteCarBrand")]
         public ActionResult DeleteCarBrandConfirmed(int id)
         {
-            _db.Delete(_db.Get<CarBrand>(id));
-            return RedirectToAction("CarBrandsList");
+            try
+            {
+                _db.Delete(_db.Get<CarBrand>(id));
+                return RedirectToAction("CarBrandsList");
+            }
+            catch
+            {
+                ViewBag.ErrorMessage = "Не удалось удалить бренд, так как он используется моделью";
+                CarBrand carBrand = _db.Get<CarBrand>(id);
+                return View(carBrand);
+            }
         }
 
         [HttpGet]
@@ -161,8 +180,17 @@ namespace AutodealerDbASP.Controllers
         [HttpPost, ActionName("DeleteClient")]
         public ActionResult DeleteClientConfirmed(int id)
         {
-            _db.Delete(_db.Get<Client>(id));
-            return RedirectToAction("ClientsList");
+            try
+            {
+                _db.Delete(_db.Get<Client>(id));
+                return RedirectToAction("ClientsList");
+            }
+            catch
+            {
+                ViewBag.ErrorMessage = "Не удалось удалить данные клиента, так как они используются";
+                Client client = _db.Get<Client>((int)id);
+                return View(client);
+            }
         }
 
         [HttpGet]
@@ -222,8 +250,17 @@ namespace AutodealerDbASP.Controllers
         [HttpPost, ActionName("DeleteProvider")]
         public ActionResult DeleteProviderConfirmed(int id)
         {
-            _db.Delete(_db.Get<Provider>(id));
-            return RedirectToAction("ProvidersList");
+            try
+            {
+                _db.Delete(_db.Get<Provider>(id));
+                return RedirectToAction("ProvidersList");
+            }
+            catch
+            {
+                ViewBag.ErrorMessage = "Не удалось удалить данные поставщика, так как они используются";
+                Client client = _db.Get<Client>(id);
+                return View(client);
+            }
         }
 
         [HttpGet]
@@ -270,7 +307,7 @@ namespace AutodealerDbASP.Controllers
 		{
 			int pageSize = 3;
 			int pageNumber = page ?? 1;
-			return View(_db.GetAll<Model>().ToPagedList(pageNumber, pageSize));
+			return View(_db.GetAllModelsFull().ToPagedList(pageNumber, pageSize));
 		}
 
 		[HttpGet]
@@ -285,8 +322,17 @@ namespace AutodealerDbASP.Controllers
 		[HttpPost, ActionName("DeleteModel")]
 		public ActionResult DeleteModelConfirmed(int id)
 		{
-			_db.Delete(_db.Get<Model>(id));
-			return RedirectToAction("ModelsList");
+            try
+            {
+                _db.Delete(_db.Get<Model>(id));
+                return RedirectToAction("ModelsList");
+            }
+            catch
+            {
+                ViewBag.ErrorMessage = "Не удалось удалить модель, так как она используется в лоте";
+                Model model = _db.GetModelFull(id);
+                return View(model);
+            }
 		}
 
 		[HttpGet]
@@ -337,14 +383,15 @@ namespace AutodealerDbASP.Controllers
 		{
 			int pageSize = 3;
 			int pageNumber = page ?? 1;
-			return View(_db.GetAll<Lot>().ToPagedList(pageNumber, pageSize));
+			return View(_db.GetAllLotsFull().ToPagedList(pageNumber, pageSize));
 		}
 
 		[HttpGet]
-		public ActionResult DeleteLot(int? id)
+		public ActionResult DeleteLot(int? id, string errorMessage = null)
 		{
 			if (id == null)
 				return NotFound();
+            ViewBag.ErrorMessage = errorMessage;
 			Lot lot = _db.GetLotFull((int)id);
 			return View(lot);
 		}
@@ -352,11 +399,18 @@ namespace AutodealerDbASP.Controllers
 		[HttpPost, ActionName("DeleteLot")]
 		public ActionResult DeleteLotConfirmed(int id)
 		{
-			_db.Delete(_db.Get<Lot>(id));
-			return RedirectToAction("LotsList");
+            try
+            {
+                _db.Delete(_db.Get<Lot>(id));
+                return RedirectToAction("LotsList");
+            }
+            catch
+            {
+                return RedirectToAction("DeleteLot", new { id, errorMessage = "Не удалось удалить" });
+            }
 		}
 
-		[HttpGet]
+        [HttpGet]
 		public ActionResult EditLot(int? id)
 		{
 			if (id == null)
@@ -405,7 +459,7 @@ namespace AutodealerDbASP.Controllers
 		{
 			int pageSize = 3;
 			int pageNumber = page ?? 1;
-			return View(_db.GetAll<ClientDeal>().ToPagedList(pageNumber, pageSize));
+			return View(_db.GetAllClientDealsFull().ToPagedList(pageNumber, pageSize));
 		}
 
 		[HttpGet]
@@ -420,8 +474,17 @@ namespace AutodealerDbASP.Controllers
 		[HttpPost, ActionName("DeleteDeal")]
 		public ActionResult DeleteDealConfirmed(int id)
 		{
-			_db.Delete(_db.GetClientDealFull(id));
-			return RedirectToAction("DealsList");
+            try
+            {
+                _db.Delete(_db.GetClientDealFull(id));
+                return RedirectToAction("DealsList");
+            }
+            catch
+            {
+                ViewBag.ErrorMessage = "Не удалось удалить сделку";
+                ClientDeal deal = _db.GetClientDealFull((int)id);
+                return View(deal);
+            }
 		}
 
 		[HttpGet]

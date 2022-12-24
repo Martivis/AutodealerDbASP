@@ -13,16 +13,19 @@
                     <label>Название</label>
                 </div>
             </dt>
-
             <dd>
                 @Html.DisplayFor(model => model.Name)
             </dd>
-
         </dl>
 
         <div class="form-actions no-color">
             <input type="submit" value="Удалить" class="btn btn-default" />
         </div>
+
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <span class="text-danger">@ViewBag.ErrorMessage</span>
+        }
     }
 </div>
 @Html.ActionLink("Вернутся к списку цветов", "CarColorsList")

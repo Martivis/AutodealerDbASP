@@ -40,6 +40,7 @@ namespace AutodealerDbWF
                 .Include("Model.CarColor")
                 .Include("Model.CarBrand")
                 .Include("ClientDeals")
+                .Include("Provider")
                 .Where(x => x.ClientDeals.Count == 0);
         }
 
@@ -91,7 +92,7 @@ namespace AutodealerDbWF
         {
             return _db.ClientDeals
                 .Include("Lot")
-                .Include("Lot.Client")
+                .Include("Client")
                 .Include("Lot.Model")
                 .Include("Lot.Model.CarColor")
                 .Include("Lot.Model.CarBrand")

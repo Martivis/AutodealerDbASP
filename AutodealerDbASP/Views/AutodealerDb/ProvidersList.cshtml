@@ -1,102 +1,76 @@
 ﻿@model PagedList.Core.IPagedList<AutodealerDbASP.Models.AutodealerDb.Entities.Provider>
-
 <div class="container">
-
-	<h2 class="text-center page-header">Поставщики</h2>
-
+    <h2 class="text-center page-header">Поставщики</h2>
 </div>
-@foreach (var item in Model)
-{
-	<div class="container jumbotron ">
-
-		<div class="text-center">
-
-			<p class="description">@Html.DisplayFor(modelItem => item.Name)</p>
-
-		</div>
-
-		<div class="text-center">
-
-			<p class="description">Телефон @Html.DisplayFor(modelItem => item.PhoneNumber)</p>
-
-		</div>
-
-		<div class="text-center">
-
-			<p class="description">E-mail @Html.DisplayFor(modelItem => item.Email)</p>
-
-		</div>
-
-		<div class="text-center">
-
-			<p class="description">Сайт @Html.DisplayFor(modelItem => item.WebsiteUrl)</p>
-
-		</div>
-
-		<div class="container">
-			<div class="col-md-1 col-md-offset-4">
-				<p><a class="btn btn-default" href="/AutodealerDb/DeleteProvider/@item.ProviderId">Удалить</a></p>
-			</div>
-
-			<div class="col-md-1 col-md-offset-1">
-				<p><a class="btn btn-default" href="/AutodealerDb/EditProvider/@item.ProviderId">Изменить</a></p>
-			</div>
-		</div>
-
-	</div>
-}
-
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                    <p><div class="glyphicon glyphicon-phone"></div> @Html.DisplayFor(modelItem => item.PhoneNumber)</p>
+                    <p><div class="glyphicon glyphicon-envelope"></div> @Html.DisplayFor(modelItem => item.Email)</p>
+                    <p><div class="glyphicon glyphicon-globe"></div> @Html.DisplayFor(modelItem => item.WebsiteUrl)</p>
+                    <p>
+                        <a href="/AutodealerDb/EditProvider/@item.ProviderId" class="btn btn-default" role="button">Изменить</a>
+                        <a href="/AutodealerDb/DeleteProvider/@item.ProviderId" class="btn btn-default" role="button">Удалить</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
 <nav aria-label="Page navigation">
-	<ul class="pagination">
-		@if (Model.HasPreviousPage)
-		{
-				<li>
-					<a href="/AutodealerDb/ProvidersList/?page=@(Model.PageNumber-1)" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-					</a>
-				</li>
-		}
-		else
-		{
-				<li class="disabled">
-					<span>
-						<span aria-hidden="true">&laquo;</span>
-					</span>
-				</li>
-		}
-		@for (int i = 1; i < Model.PageCount + 1; i++)
-		{
-			@if (Model.PageNumber == i)
-			{
-						<li class="active">
-							<span>@i<span class="sr-only">(Current)</span></span>
-						</li>
-			}
-			else
-			{
-						<li><a href="/AutodealerDb/ProvidersList/?page=@i">@i</a></li>
-			}
-		}
-		@if (Model.HasNextPage)
-		{
-				<li>
-					<a href="/AutodealerDb/ProvidersList/?page=@(Model.PageNumber+1)" aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
-					</a>
-				</li>
-		}
-		else
-		{
-				<li class="disabled">
-					<span>
-						<span aria-hidden="true">&raquo;</span>
-					</span>
-				</li>
-		}
-	</ul>
+    <ul class="pagination">
+        @if (Model.HasPreviousPage)
+        {
+            <li>
+                <a href="/AutodealerDb/ProvidersList/?page=@(Model.PageNumber-1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="disabled">
+                <span>
+                    <span aria-hidden="true">&laquo;</span>
+                </span>
+            </li>
+        }
+        @for (int i = 1; i < Model.PageCount + 1; i++)
+        {
+            @if (Model.PageNumber == i)
+            {
+                <li class="active">
+                    <span>@i<span class="sr-only">(Current)</span></span>
+                </li>
+            }
+            else
+            {
+                <li><a href="/AutodealerDb/ProvidersList/?page=@i">@i</a></li>
+            }
+        }
+        @if (Model.HasNextPage)
+        {
+            <li>
+                <a href="/AutodealerDb/ProvidersList/?page=@(Model.PageNumber+1)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="disabled">
+                <span>
+                    <span aria-hidden="true">&raquo;</span>
+                </span>
+            </li>
+        }
+    </ul>
 </nav>
 
-
 <div>
-	@Html.ActionLink("Добавить поставщика", "AddProvider")
+    @Html.ActionLink("Добавить поставщика", "AddProvider")
 </div>

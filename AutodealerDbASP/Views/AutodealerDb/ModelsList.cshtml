@@ -5,34 +5,27 @@
 	<h2 class="text-center page-header">Модели</h2>
 
 </div>
-@foreach (var item in Model)
-{
-	<div class="container jumbotron ">
 
-		<div class="text-center">
-			<p class="description">@Html.DisplayFor(modelItem => item.CarBrand.Name) @Html.DisplayFor(modelItem => item.Name)</p>
-		</div>
 
-		<div class="text-center">
-			<p class="description">Цвет @Html.DisplayFor(modelItem => item.CarColor.Name)</p>
-		</div>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3>@Html.DisplayFor(modelItem => item.CarBrand.Name) @Html.DisplayFor(modelItem => item.Name)</h3>
+                    <p><div class="glyphicon glyphicon-stop"></div> @Html.DisplayFor(modelItem => item.CarColor.Name)</p>
+                    <p><div class="glyphicon glyphicon-fire"></div> @Html.DisplayFor(modelItem => item.Power) Л.С.</p>
+                    <p>
+                        <a href="/AutodealerDb/EditModel/@item.ModelId" class="btn btn-default" role="button">Изменить</a>
+                        <a href="/AutodealerDb/DeleteModel/@item.ModelId" class="btn btn-default" role="button">Удалить</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
 
-		<div class="text-center">
-			<p class="description">@Html.DisplayFor(modelItem => item.Power) Л.С.</p>
-		</div>
-
-		<div class="container">
-			<div class="col-md-1 col-md-offset-4">
-				<p><a class="btn btn-default" href="/AutodealerDb/DeleteModel/@item.ModelId">Удалить</a></p>
-			</div>
-
-			<div class="col-md-1 col-md-offset-1">
-				<p><a class="btn btn-default" href="/AutodealerDb/EditModel/@item.ModelId">Изменить</a></p>
-			</div>
-		</div>
-
-	</div>
-}
 
 <nav aria-label="Page navigation">
 	<ul class="pagination">
